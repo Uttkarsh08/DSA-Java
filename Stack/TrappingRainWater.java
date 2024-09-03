@@ -2,6 +2,7 @@ package Stack;
 
 public class TrappingRainWater {
     public static int trap(int[] height) {
+        System.out.println("trap");
             return 0;
     }
     public static void main(String[] args) {
