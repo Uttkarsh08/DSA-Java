@@ -1,0 +1,8 @@
+#TO-DO(JAVA)
+
+1) QuickSelect - Kth Largest Element
+2) Queues qno. 1 (generating Binary Number from 1 to N)
+3) Queues qno. 3 (Job Scheduling Problem)
+4) Disjoint Set
+5) Maximum meeting in a room
+6) Job Scheduling Problem GFG
