@@ -38,7 +38,7 @@ public class DecodeString {
         return result.toString();
     }
     public static void main(String[] args) {
-        String str = "2[abc]3[cd]ef";
+        String str = "3[a2[c]]";
         System.out.println(solution(str));
     }
 }

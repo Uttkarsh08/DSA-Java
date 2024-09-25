@@ -10,7 +10,7 @@ public class NextGreaterElement {
         for(int i= nums.length-1; i>=0; i--){
             while(!s.isEmpty() && s.peek() <= nums[i]){
                 s.pop();
-            }
+            }   
             if(s.isEmpty()){
                 ans[i] = -1;
             }else{
