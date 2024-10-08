@@ -1,19 +1,67 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.swing.tree.TreeNode;
+
 public class Helper {
-    public static String getSmallestString(int n, int k) {
-        char[] ans =new char[n];
-        k-=n;   // since every 
-        for(int i=n-1; i>=0; i--){
-            if(k>=25){
-                ans[i] = 'z';
-                k-=25;
-            }else{
-                ans[i] = (char) ('a'+k);
-                k=0;
+    static class Node{
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data){
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+    public static boolean isIdentical(Node root, Node subRoot){
+        if(root == null && subRoot == null){
+            return true;
+        }else if(root == null || subRoot == null || root.data != subRoot.data){
+            return false;
+        }
+        if(!isIdentical(root.left, subRoot.left)){
+            return false;
+        }
+        if(!isIdentical(root.right, subRoot.right)){
+            return false;
+        }
+        return true;
+
+    }
+
+    public static boolean isSubTree(Node root, Node subRoot){
+        if(root == null){
+            return false;
+        }
+        if(root.data == subRoot.data){
+            if(isIdentical(root, subRoot)){
+                return true;
             }
         }
-        return new String(ans);
+        return isSubTree(root.left, subRoot) || isSubTree(root.right, subRoot);
     }
+    
     public static void main(String[] args) {
-        System.out.println(getSmallestString(3,3));
+        HashMap<Integer, Integer> hash = new HashMap<>();
+        hash.put(1, 10);
+        a= hash.get(1);
+        qu
+
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+        
+        Node subRoot = new Node(2);
+        subRoot.left = new Node(4);
+        subRoot.right = new Node(5);
+
+        System.out.println(isSubTree(root, subRoot));
     }
 }
+
