@@ -44,10 +44,6 @@ public class Helper {
     }
     
     public static void main(String[] args) {
-        HashMap<Integer, Integer> hash = new HashMap<>();
-        hash.put(1, 10);
-        a= hash.get(1);
-        qu
 
         Node root = new Node(1);
         root.left = new Node(2);
