@@ -21,9 +21,12 @@ public class Helper {
     }
     
     public static void main(String[] args) {
+        ArrayList<Integer> path1 = new ArrayList<>();
+        path1.add(1);
+        path1.add(2);
 
         int[] nums = {6,0,8,2,1,5};
-        System.out.println(maxWidthRamp(nums));
+        System.out.println(path1.get(2));
     }
 }
 

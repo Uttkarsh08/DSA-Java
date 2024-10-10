@@ -24,7 +24,7 @@ public class LowestCommonAncestor {
         }
         
         boolean foundLeft = getPath(root.left, n, path);
-        boolean foundRight = getPath(root.left, n, path);
+        boolean foundRight = getPath(root.right, n, path);
 
         if(foundLeft || foundRight){
             return true;

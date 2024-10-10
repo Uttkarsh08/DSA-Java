@@ -21,7 +21,7 @@ public class diameter2 {
             this.height = h;
         }
     }
-    public static Info diameter(Node root){   //O(n^2)
+    public static Info diameter(Node root){   //O(n)
             if(root == null){
                 return new Info(0,0);
             }
