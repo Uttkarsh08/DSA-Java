@@ -15,7 +15,7 @@ public class UniValued {
         }
     }
     public static boolean isUniValued(Node root, HashSet<Integer> hash){
-        if(root == null) return false;
+        if(root == null) return true;
         hash.add(root.data);
         isUniValued(root.left, hash);
         isUniValued(root.right, hash);
