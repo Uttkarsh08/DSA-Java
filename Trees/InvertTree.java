@@ -12,6 +12,7 @@ public class InvertTree {
             this.right = null;
         }
     }
+    @SuppressWarnings("null")
     public static Node Invert(Node root){
         if(root == null){
             return null;
