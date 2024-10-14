@@ -1,8 +1,9 @@
-import java.util.*;
+package Heap;
 
-import javax.swing.tree.TreeNode;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
-public class Helper {
+public class MaxScore2530 {
     public static long maxKelements(int[] nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
         for(int num: nums){
@@ -19,12 +20,8 @@ public class Helper {
         return score;
 
     }
-    
     public static void main(String[] args) {
-        
-        int nums[] = {672579538,806947365,854095676,815137524};
+        int nums[] = {1,10,3,3,3};
         System.out.println(maxKelements(nums, 3));
-        // System.out.println((854095676+2)/3);
     }
 }
-
