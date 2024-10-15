@@ -1,17 +1,4 @@
-import java.util.*;
-
-import javax.swing.tree.TreeNode;
-
-public class Helper {
-    public static boolean isSorted(char[] arr){
-        boolean sorted = true;
-        for(int i=0; i<arr.length; i++){
-            if((int)arr[i+1]< (int)arr[i]){
-                sorted = false;
-            }
-        }
-        return sorted;
-    }
+public class SeperateBlackAndWhite2938 {
     public static long minimumSteps(String s) {
         long ans = 0;
         int ones = 0;
@@ -32,4 +19,3 @@ public class Helper {
         System.out.println(minimumSteps(s));
     }
 }
-

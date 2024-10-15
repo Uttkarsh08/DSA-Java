@@ -1,6 +1,10 @@
 package BST;
-import java.util.*;
-public class PrintInRange {
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class ValidateBST {
     static class Node{
         int data;
         Node left;
@@ -12,6 +16,21 @@ public class PrintInRange {
             this.right = null;
         }
     }
+   public static List<Integer> Inorder(Node root, List<Integer> list){
+        if(root == null) return list;
+        Inorder(root.left, list);
+        list.add(root.data);
+        Inorder(root.right, list);
+        return list;
+    }
+    public static boolean isValidBST(Node root) {
+        List<Integer> list = new ArrayList<>();
+        Inorder(root, list);
+        for(int i=0; i<list.size()-1; i++){
+            if(list.get(i) >= list.get(i+1)) return false;
+        }
+        return true;
+    } 
     public static Node Insert(Node root, int val){
         if(root == null){
             root = new Node(val);
@@ -24,36 +43,13 @@ public class PrintInRange {
         }
         return root;
     }
-    
-
-    public static List<Integer> InRange(Node root, int k1, int k2, List<Integer> ans){
-        
-        if(root == null){
-            return ans;
-        }
-        if(root.data >=k1 && root.data <=k2){
-            InRange(root.left, k1, k2, ans);
-            ans.add(root.data); 
-            InRange(root.right, k1, k2, ans);
-        }
-        else if(k1 < root.data){
-            InRange(root.left, k1, k2, ans);
-        }
-        else{
-            InRange(root.right, k1, k2, ans);
-        }
-        return ans;
-
-    }
 
     public static void main(String[] args) {
-        List<Integer> ans = new ArrayList<>();
         int vals[] = {8,5,3,1,4,6,10,11,14};
         Node root = null;
         for(int val: vals){
             root = Insert(root, val);
-        } 
-        System.out.println(InRange(root, 5, 12, ans));
+        }
+        System.out.println(isValidBST(root));
     }
-
 }
