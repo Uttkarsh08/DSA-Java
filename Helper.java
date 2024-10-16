@@ -13,18 +13,8 @@ public class Helper {
         return sorted;
     }
     public static long minimumSteps(String s) {
-        long ans = 0;
-        int ones = 0;
-        char[] arr = s.toCharArray();
-        for(int i=0; i<arr.length; i++){
-            if(arr[i] == '1'){
-                ones++;
-            }
-            if(arr[i] == '0'){
-                ans+=ones;
-            }
-        } 
-        return ans;
+        ArrayList<Integer> ans = new ArrayList<>();
+        int mid = ans.si
     }
     public static void main(String[] args) {
         

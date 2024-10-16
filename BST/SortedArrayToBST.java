@@ -14,7 +14,7 @@ public class SortedArrayToBST {
     }
 
     public static Node ArraytoBST(int arr[], int start, int end){
-        if(start == end) return null;
+        if(start > end) return null;
         int mid = (start+end)/2;
         Node root = new Node(arr[mid]);
 
