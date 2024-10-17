@@ -13,10 +13,10 @@ public class SizeOflargestBST {
         }
     }
     static class Info{
-        boolean isBst = false;
-        int size = 0;
-        int min  = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
+        boolean isBst;
+        int size;
+        int min;
+        int max;
 
         Info(boolean isBst, int size, int min, int max){
             this.isBst = isBst;
@@ -25,15 +25,30 @@ public class SizeOflargestBST {
             this.max = max;
         }
     }
-
-    public static boolean isBst(Node root, int min, int max){
-        if(root == null) return true;
-    }
-
+static int maxBST =0;
     public static Info SizeOfLargestBST(Node root){
-        int size =0;
+        if(root == null) return new Info(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE);
 
-        return size;
+        Info left = SizeOfLargestBST(root.left);
+        Info right = SizeOfLargestBST(root.right);
+
+        int size = left.size+right.size+1;
+        int min = Math.min(Math.min(left.min, right.min), root.data);
+        int max = Math.max(Math.max(left.max, right.max), root.data);
+
+        if(root.data <= left.max || root.data >= right.min){
+            return new Info(false, size, min, max);
+        }
+
+        if(left.isBst && right.isBst){
+            maxBST = Math.max(maxBST, size);
+            return new Info(true, size, min, max);
+        }
+        return new Info(false, size, min, max);
+    }
+    public static int LargestBST(Node root){
+        Info ans = SizeOfLargestBST(root);
+        return maxBST;
     }
     public static void main(String[] args) {
         Node root = new Node(50);
@@ -47,7 +62,7 @@ public class SizeOflargestBST {
         root.right.right.right = new Node(80);
         root.right.right.left = new Node(65);
 
-
+        System.out.println(LargestBST(root));
 
     }
 }

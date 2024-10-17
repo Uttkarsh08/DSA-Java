@@ -31,7 +31,7 @@ public class ValidateBST2 {
         if(min != null && root.data <=min.data) return false;
         if(max != null && root.data >=max.data) return false;
 
-        return isValidBST(root.left, min, root) && isValidBST(root, root, max);
+        return isValidBST(root.left, min, root) && isValidBST(root.right, root, max);
     }
 
     public static void main(String[] args) {
