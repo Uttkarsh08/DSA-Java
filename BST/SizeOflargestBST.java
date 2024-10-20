@@ -47,7 +47,7 @@ static int maxBST =0;
         return new Info(false, size, min, max);
     }
     public static int LargestBST(Node root){
-        Info ans = SizeOfLargestBST(root);
+        SizeOfLargestBST(root);
         return maxBST;
     }
     public static void main(String[] args) {
