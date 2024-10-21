@@ -1,30 +1,80 @@
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 
 public class Helper {
-       
-    public static void main(String[] args) {
-        String s = "wwwzfvedwfvhsww"; // Test case
-        HashSet<Character> hash = new HashSet<>();
-        int ans = 0;  // Count of unique characters or substrings
-        
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i); // Current character
-            
-            if (!hash.contains(ch)) {
-                // If the character is not in the set, add it and increment ans
-                hash.add(ch);
-                ans++;
-            } else {
-                // If the character is already in the set, clear the set and restart for a new substring
-                hash.clear();
-                hash.add(ch); // Add the current character after clearing
-                ans++;  // Each new unique substring still counts
+    static class TreeNode{
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int data){
+            this.val = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+    public static List<List<Integer>> helper(TreeNode root, List<List<Integer>> ans, List<Integer> cur, Queue<TreeNode> q, boolean rtl){
+        if(root == null) return ans;
+        q.add(root);
+        q.add(null);
+
+        while(!q.isEmpty()){
+            TreeNode curNode = q.remove();
+            if(curNode == null){
+                if(q.isEmpty()){
+                    break;
+                }else{
+                    q.add(null);
+                }
+                ans.add(new ArrayList<>(cur));
+                cur.clear();
+                rtl = !rtl;
+            }else{
+                cur.add(curNode.val);
+                if(rtl){
+                    if(curNode.right != null){
+                        q.add(curNode.right);
+                    }
+                    if(curNode.left != null){
+                        q.add(curNode.left);
+                    }
+                }else{
+                    if(curNode.left != null){
+                        q.add(curNode.left);
+                    }
+                    if(curNode.right != null){
+                        q.add(curNode.right);
+                    }
+                }
             }
         }
+        if (!cur.isEmpty()) {
+            ans.add(new ArrayList<>(cur));  // Add the last level to the result
+        }
+        return ans;
+    }
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> cur = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        boolean rtl = true;
+        return helper(root, ans, cur, q, rtl);
+    }
+       
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
 
-        System.out.println(ans); // Output the result
+        System.out.println(zigzagLevelOrder(root));
+
     }
 }
 
