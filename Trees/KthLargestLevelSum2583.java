@@ -1,12 +1,11 @@
-import java.util.ArrayList;
+package Trees;
+
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-
-public class Helper {
+public class KthLargestLevelSum2583 {
     static class TreeNode{
         int val;
         TreeNode left;
@@ -18,6 +17,7 @@ public class Helper {
             this.right = null;
         }
     }
+
     public static long kthLargestLevelSum(TreeNode root, int k) {
         PriorityQueue<Long> pq = new PriorityQueue<>(Comparator.reverseOrder());
         long ans=-1;
@@ -34,8 +34,7 @@ public class Helper {
                 if(q.isEmpty()) break;
                 else q.add(null);
             }else{
-                curSum +=root.val;
-                System.out.println(curSum);
+                curSum +=cur.val;
                 if(cur.left != null){
                     q.add(cur.left);
                 }
@@ -44,15 +43,17 @@ public class Helper {
                 }
             }
         }
-        // while(!pq.isEmpty()){
-        //     System.out.println(pq.poll());
-        // }
-        
+        if(k>pq.size()){
+            return ans;
+        }
+        while(k>0){
+            ans=pq.poll();
+            k--;
+        }
         return ans;
     }
-       
+
     public static void main(String[] args) {
-        PriorityQueue<Long> pq = new PriorityQueue<>();
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
         root.right = new TreeNode(3);
@@ -65,4 +66,3 @@ public class Helper {
 
     }
 }
-
