@@ -1,10 +1,8 @@
 package Graphs;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
-public class BFS {
+public class HasPath {
     static class Edge{
         int src;
         int des;
@@ -15,7 +13,6 @@ public class BFS {
             this.wt = wt;
         }
     }
-
     public static void CreateGraph(ArrayList<Edge>[] graph){
         for(int i=0; i<graph.length; i++){
             graph[i] = new ArrayList<>();    // this will create empty arraylist at each index of array
@@ -44,36 +41,21 @@ public class BFS {
 
         graph[6].add(new Edge(6, 5, 1));
     }
-
-    public static ArrayList<Integer> bfs(ArrayList<Edge>[] graph, ArrayList<Integer> ans){
-        boolean visited[] = new boolean[graph.length];
-        for(int i=0; i<graph.length; i++){
-            if(!visited[i]){
-                bfsUtil(graph, ans, visited);
-            }
-        }
-        return ans;
-    }
     
-    public static void bfsUtil(ArrayList<Edge>[] graph, ArrayList<Integer> ans, boolean[] visited){   //0(V+E)
-        
-        Queue<Integer> q = new LinkedList<>();
+    public static boolean hasPath(ArrayList<Edge>[] graph, int src, int des, boolean[] vis){{
+        if(src == des) return true;
+        vis[src] = true;
 
-        //let source be 0->
-        q.add(0);
+        for(int i=0; i<graph[src].size(); i++){
+            Edge e = graph[src].get(i);
 
-        while(!q.isEmpty()){
-            int cur = q.remove();
-            if(!visited[cur]){
-                ans.add(cur);
-                visited[cur] = true;
-
-                for(int i=0; i<graph[cur].size(); i++){
-                    Edge e = graph[cur].get(i);
-                    q.add(e.des);
-                }
+            if(!vis[e.des] && hasPath(graph, e.des, des, vis)){
+                return true;
             }
         }
+        return false;
+    }
+
     }
     public static void main(String[] args) {
         /*
@@ -85,10 +67,10 @@ public class BFS {
          */
 
         int V = 7;
-        ArrayList<Integer> ans = new ArrayList<>();
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[V];
         CreateGraph(graph);
-        System.out.println(bfs(graph, ans));
+
+        System.out.println(hasPath(graph, 0, 5, new boolean[V]));
     }
 }
