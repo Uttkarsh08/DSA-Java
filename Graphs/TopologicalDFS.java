@@ -1,8 +1,9 @@
 package Graphs;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
-public class DFS {
+public class TopologicalDFS {
     static class Edge{
         int src;
         int des;
@@ -19,55 +20,48 @@ public class DFS {
             graph[i] = new ArrayList<>();    // this will create empty arraylist at each index of array
         }
  
-        graph[0].add(new Edge(0, 1, 1));
-        graph[0].add(new Edge(0, 2, 1));
 
-        graph[1].add(new Edge(1, 0, 1));
-        graph[1].add(new Edge(1, 3, 1));
-
-        graph[2].add(new Edge(2, 0, 1));
-        graph[2].add(new Edge(2, 4, 1));
+        graph[2].add(new Edge(2, 3, 1));
 
         graph[3].add(new Edge(3, 1, 1));
-        graph[3].add(new Edge(3, 4, 1));
-        graph[3].add(new Edge(3, 5, 1));
 
-        graph[4].add(new Edge(4, 2, 1));
-        graph[4].add(new Edge(4, 3, 1));
-        graph[4].add(new Edge(4, 5, 1));
+        graph[4].add(new Edge(4, 0, 1));
+        graph[4].add(new Edge(4, 1, 1));
 
-        graph[5].add(new Edge(5, 3, 1));
-        graph[5].add(new Edge(5, 4, 1));
-        graph[5].add(new Edge(5, 6, 1));
+        graph[5].add(new Edge(5, 0, 1));
+        graph[5].add(new Edge(5, 2, 1));
 
-        graph[6].add(new Edge(6, 5, 1));
     }
 
-    public static ArrayList<Integer> dfs(ArrayList<Edge>[] graph){
+    public static ArrayList<Integer> topologicalSort(ArrayList<Edge>[] graph){
         ArrayList<Integer> ans = new ArrayList<>();
         boolean[] visited = new boolean[graph.length];
+        Stack<Integer> s = new Stack<>();
 
-        for(int i=0;i<graph.length; i++){
+        for(int i=0; i<graph.length; i++){
             if(!visited[i]){
-                dfsUtil(graph, ans, i, visited);
+                topologicalSortUtil(graph, i, visited, s);
             }
         }
-
+        while(!s.isEmpty()){
+            ans.add(s.pop());
+        }
         return ans;
+        
     }
 
-    public static void dfsUtil(ArrayList<Edge>[] graph, ArrayList<Integer> ans, int cur, boolean visited[]){   //0(V+E)
-        //visit
-        ans.add(cur);
+    public static void topologicalSortUtil(ArrayList<Edge>[] graph, int cur, boolean visited[], Stack<Integer> s){   //0(V+E)
         visited[cur] = true;
 
-        // recursive call for its neighbours
         for(int i=0; i<graph[cur].size(); i++){
             Edge e = graph[cur].get(i);
             if(!visited[e.des]){
-                dfsUtil(graph, ans, e.des, visited);
+                topologicalSortUtil(graph, e.des, visited, s);
             }
         }
+        s.push(cur);   // adding to stack so to use its LIFO property
+        // since we are using DFS(recursion), in u->v, V will always be added before U in the stack
+        // so when removing elements from stack , we get V after U.
     }
     public static void main(String[] args) {
         /*
@@ -78,10 +72,10 @@ public class DFS {
                     2------4
          */
 
-        int V = 7;
+        int V = 6;
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[V];
         CreateGraph(graph);
-        System.out.println(dfs(graph));
+        System.out.println(topologicalSort(graph));
     }
 }

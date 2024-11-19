@@ -60,7 +60,9 @@ public class Helper {
         root.left.right = new TreeNode(5);
         root.right.left = new TreeNode(6);
         root.right.right = new TreeNode(7);
-
+        StringBuilder sb = new StringBuilder();
+        sb.length();
+        sb.
         System.out.println(kthLargestLevelSum(root, 2));
 
     }
