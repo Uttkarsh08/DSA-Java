@@ -35,7 +35,7 @@ public class AllPaths {
 
     public static ArrayList<String> allPaths(ArrayList<Edge>[] graph, int src, int des, String path, ArrayList<String> ans){
         if(src == des){
-            ans.add(path+src);
+            ans.add(path+des);
             return ans;
         }
 
@@ -60,6 +60,6 @@ public class AllPaths {
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[V];
         CreateGraph(graph);
-        System.out.println(allPaths(graph, 4, 5, "", new ArrayList<>()));
+        System.out.println(allPaths(graph, 5, 1, "", new ArrayList<>()));
     }
 }
