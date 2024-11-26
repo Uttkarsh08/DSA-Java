@@ -36,7 +36,7 @@ public class PrimsAlgo_MST {
     }
     static class Pair{
         int v;
-        int cost;
+        int cost;   
 
         Pair(int v, int cost){
             this.v = v;
