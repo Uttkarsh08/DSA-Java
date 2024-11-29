@@ -13,7 +13,7 @@ public class ConnectingCitiesWithMinCost {
 
             int ans=0;
 
-            pq.add(new int[]{0,0});
+            pq.add(new int[]{0,0}); //node, cost    
             while (!pq.isEmpty()) {
                 int[] cur = pq.poll();
                 int node = cur[0];
