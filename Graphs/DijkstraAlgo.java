@@ -47,6 +47,7 @@ public class DijkstraAlgo {
         );
 
         pq.add(new int[]{src, 0});
+        
         while(!pq.isEmpty()){
             int[] cur = pq.poll();
             int node = cur[0];
