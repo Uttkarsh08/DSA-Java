@@ -1,70 +1,59 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
-
+import java.util.Stack;
 
 public class Helper {
-    static class TreeNode{
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int data){
-            this.val = data;
-            this.left = null;
-            this.right = null;
-        }
-    }
-    public static long kthLargestLevelSum(TreeNode root, int k) {
-        PriorityQueue<Long> pq = new PriorityQueue<>(Comparator.reverseOrder());
-        long ans=-1;
-        if(root == null) return ans;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        q.add(null);
-        long curSum=0;
-        while(!q.isEmpty()){
-            TreeNode cur = q.remove();
-            if(cur==null){
-                pq.offer(curSum);
-                curSum=0;
-                if(q.isEmpty()) break;
-                else q.add(null);
-            }else{
-                curSum +=root.val;
-                System.out.println(curSum);
-                if(cur.left != null){
-                    q.add(cur.left);
-                }
-                if(cur.right != null){
-                    q.add(cur.right);
-                }
-            }
-        }
-        // while(!pq.isEmpty()){
-        //     System.out.println(pq.poll());
-        // }
-        
-        return ans;
-    }
-       
-    public static void main(String[] args) {
-        PriorityQueue<Long> pq = new PriorityQueue<>();
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-        root.left.left = new TreeNode(4);
-        root.left.right = new TreeNode(5);
-        root.right.left = new TreeNode(6);
-        root.right.right = new TreeNode(7);
+    public static boolean canChange(String start, String target) {
+        Stack<Character> s = new Stack<>();
         StringBuilder sb = new StringBuilder();
-        sb.length();
-        sb.
-        System.out.println(kthLargestLevelSum(root, 2));
+        boolean l= false;
+        int x=0;
+        for(int i=start.length()-1; i>=0; i--){
+            char ch = start.charAt(i);
+            if(s.isEmpty()){
+                s.push(ch);
+                continue;
+            }
+            if(ch == 'R' && l) return false;
+            if(ch=='R'){
+                if(s.peek() == '_'){
+                    while(!s.isEmpty() && s.peek() == '_'){
+                    x++;
+                    s.pop();
+                    }
+                    s.push(ch);
+                    while(x>0){
+                        s.push('_');
+                        x--;
+                    }
+                }else{
+                    s.push(ch);
+                }
+                
+            }else if(ch=='_'){
+                if(s.peek() == 'L'){
+                    while(!s.isEmpty() && s.peek() == 'L'){
+                    x++;
+                    s.pop();
+                    }
+                    s.push(ch);
+                    while(x>0){
+                        s.push('L');
+                        x--;
+                    }
+                }else{
+                    s.push(ch);
+                }
+                
+            }else{
+                l = true;
+                s.push(ch);
+            }
 
+        }
+        while(!s.isEmpty()){
+            sb.append(s.pop());
+        }
+        return target.equals(sb.toString());
     }
+    public static void main(String[] args) {
+        
 }
-
