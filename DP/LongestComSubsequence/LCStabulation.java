@@ -1,7 +1,7 @@
 package DP.LongestComSubsequence;
 
-public class LCAtabulation {
-    public static int LcaRecursion(String s1, String s2, int n, int m){
+public class LCStabulation {
+    public static int LcsTabulation(String s1, String s2, int n, int m){
         int[][] dp = new int[n+1][m+1];
         for(int i=0; i<=n; i++){
             for(int j=0; j<=m; j++){
@@ -27,6 +27,6 @@ public class LCAtabulation {
         int n = s1.length();
         int m = s2.length();
         
-        System.out.println(LcaRecursion(s1, s2, n, m));
+        System.out.println(LcsTabulation(s1, s2, n, m));
     }
 }
