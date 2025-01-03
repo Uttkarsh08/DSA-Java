@@ -19,7 +19,8 @@ public class Tabulation {
 
                 if(w<= j){   // valid case
                     //include
-                    int incProfit = v+dp[i-1][j-w]; 
+                    int incProfit = v+dp[i-1][j-w];    //if Unbounded KNapsack -> v+dp[i][j-w], 
+                    //no. of elements is not reduced because one elements if added can be used again
 
                     //exclude
                     int excprofit = dp[i-1][j];
