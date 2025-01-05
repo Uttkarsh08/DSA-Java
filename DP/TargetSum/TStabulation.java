@@ -15,7 +15,8 @@ public class TStabulation {
                 //include
                 if(val <=j && dp[i-1][j-val] == true){
                     dp[i][j] = true;
-                }else if(dp[i-1][j] == true){  //exclude
+                }
+                else if(dp[i-1][j] == true){  //exclude
                     dp[i][j] = true;
                 }
             }
