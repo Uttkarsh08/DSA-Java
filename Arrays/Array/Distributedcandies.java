@@ -2,6 +2,7 @@ package Arrays.Array;
 
 import java.util.HashSet;
 
+//THis is the Demo PRogram to distribute the candies to the sister
 public class Distributedcandies {
     public static int distributeCandies(int[] arr) {
         HashSet<Integer> set = new HashSet<>();
