@@ -1,59 +1,41 @@
-import java.util.Stack;
-
-public class Helper {
-    public static boolean canChange(String start, String target) {
-        Stack<Character> s = new Stack<>();
-        StringBuilder sb = new StringBuilder();
-        boolean l= false;
-        int x=0;
-        for(int i=start.length()-1; i>=0; i--){
-            char ch = start.charAt(i);
-            if(s.isEmpty()){
-                s.push(ch);
-                continue;
-            }
-            if(ch == 'R' && l) return false;
-            if(ch=='R'){
-                if(s.peek() == '_'){
-                    while(!s.isEmpty() && s.peek() == '_'){
-                    x++;
-                    s.pop();
-                    }
-                    s.push(ch);
-                    while(x>0){
-                        s.push('_');
-                        x--;
-                    }
-                }else{
-                    s.push(ch);
-                }
-                
-            }else if(ch=='_'){
-                if(s.peek() == 'L'){
-                    while(!s.isEmpty() && s.peek() == 'L'){
-                    x++;
-                    s.pop();
-                    }
-                    s.push(ch);
-                    while(x>0){
-                        s.push('L');
-                        x--;
-                    }
-                }else{
-                    s.push(ch);
-                }
-                
-            }else{
-                l = true;
-                s.push(ch);
-            }
-
-        }
-        while(!s.isEmpty()){
-            sb.append(s.pop());
-        }
-        return target.equals(sb.toString());
+class Helper {
+    static int MOD = 1000000007;
+    public static int countGoodNumbers(long n) {
+       
+        return (int)help(n, 0); 
     }
-    public static void main(String[] args) {
-        
+
+    public static long help(long n, int idx){
+        if(idx == n){
+            return 1;
+        }
+        long ans=0;
+        for(int i=0; i<=9; i++){
+            if(isValid(i, idx)){
+                ans = (ans+help(n, idx+1))%MOD;
+            }
+        }
+        return ans;
+    }
+
+    public static boolean isValid(int i, int idx){
+        if(idx%2 == 0 && i%2 == 0) return true;
+        if(idx%2 != 0 && isPrime(i)) return true;
+
+        return false;
+    }
+
+    static boolean isPrime(int n){    
+    if (n <= 1)     
+           return false;    
+       for (int i = 2; i <= Math.sqrt(n); i++)   
+           if (n % i == 0)   
+               return false;    
+       return true;    
+   }   
+   public static void main(String[] args) {
+    // System.out.println(countGoodNumbers(5));
+    System.out.println(14/10);
+    
+   }
 }
