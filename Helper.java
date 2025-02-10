@@ -1,41 +1,29 @@
-class Helper {
-    static int MOD = 1000000007;
-    public static int countGoodNumbers(long n) {
-       
-        return (int)help(n, 0); 
-    }
+import java.util.Arrays;
 
-    public static long help(long n, int idx){
-        if(idx == n){
-            return 1;
-        }
-        long ans=0;
-        for(int i=0; i<=9; i++){
-            if(isValid(i, idx)){
-                ans = (ans+help(n, idx+1))%MOD;
+class Solution {
+    static int MOD = 1000000007;
+    public static int sumSubseqWidths(int[] nums) {
+        Arrays.sort(nums);
+        int ans=0;
+        int mul = 1;
+        for(int i=0; i<nums.length; i++){
+            for(int j=i+1; j<nums.length; j++){
+                int len = j-i+1;
+                if(len ==2) ans+=(nums[j]-nums[i]);
+                else{
+                    int n = len-2;
+                    mul = (int)Math.pow(2, n) % MOD;
+                    ans+=(mul * nums[j]-nums[i]) %MOD;
+                }
             }
         }
+
         return ans;
     }
 
-    public static boolean isValid(int i, int idx){
-        if(idx%2 == 0 && i%2 == 0) return true;
-        if(idx%2 != 0 && isPrime(i)) return true;
-
-        return false;
+    public static void main(String[] args) {
+        int[] nums = new int[]{2,1,3};
+        System.out.println(sumSubseqWidths(nums));
     }
 
-    static boolean isPrime(int n){    
-    if (n <= 1)     
-           return false;    
-       for (int i = 2; i <= Math.sqrt(n); i++)   
-           if (n % i == 0)   
-               return false;    
-       return true;    
-   }   
-   public static void main(String[] args) {
-    // System.out.println(countGoodNumbers(5));
-    System.out.println(14/10);
-    
-   }
 }

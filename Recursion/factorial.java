@@ -12,8 +12,8 @@ public class factorial {
 
     }
     public static void main(String[] args) {
-        int n = 10;
-        // System.out.println(Factorial(n));
-        System.out.println((12700730+14515200+3628799)%998244353);
+        int n = 7;
+        System.out.println(Factorial(n));
+        // System.out.println((12700730+14515200+3628799)%998244353);
     }
 }

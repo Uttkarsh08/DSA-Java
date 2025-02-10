@@ -11,7 +11,7 @@ public class CF553A {
             int r = arr[i]-1;
             int N = sum-1;
             
-            ans*=nCr(N, r)%MOD;
+            ans=  (ans*nCr(N, r))%MOD;
         }
 
         return (int)ans;
@@ -23,9 +23,27 @@ public class CF553A {
         dp[0] = 1;
         for(int i=1; i<=r; i++){
             dp[i] = dp[i-1]*(n-i+1) % MOD;
-            dp[i] = dp[i]/i;
+            dp[i] = dp[i] * modInverse(i, MOD) % MOD;
         }
         return (int) dp[r];
+    }
+    public static long modInverse(int a, int mod) {
+        return power(a, mod - 2, mod);
+    }
+
+    public static long power(long base, long exp, int mod) {
+        long result = 1;
+        base = base % mod;
+
+        while (exp > 0) {
+            if ((exp & 1) == 1) { // If exp is odd
+                result = (result * base) % mod;
+            }
+            base = (base * base) % mod; // Square the base
+            exp >>= 1; // Divide exp by 2
+        }
+
+        return result;
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

@@ -1,41 +1,48 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+
 using namespace std;
 
-int Sol(int n, int x, vector<int>& prices, vector<int>& pages) {
-    vector<vector<int>> dp(2, vector<int>(x + 1, 0));
-
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= x; j++) {
-            if (prices[i - 1] <= j) {
-                int take = pages[i - 1] + dp[(i - 1) % 2][j - prices[i - 1]];
-                int leave = dp[(i - 1) % 2][j];
-                dp[i % 2][j] = max(take, leave);
-            } else {
-                dp[i % 2][j] = dp[(i - 1) % 2][j];
-            }
+void dfs(int cur, vector<vector<int>> &adj, vector<bool> &vis) {
+    vis[cur] = true;
+    for (int neigh : adj[cur]) {
+        if (!vis[neigh]) {
+            dfs(neigh, adj, vis);
         }
     }
-
-    return dp[n % 2][x];
 }
 
 int main() {
-    int n, x;
-    cin >> n >> x;
+    int cities, nr;
+    cin >> cities >> nr;
 
-    vector<int> prices(n);
-    for (int i = 0; i < n; i++) {
-        cin >> prices[i];
+    vector<vector<int>> adj(cities + 1);
+
+    while (nr--) {
+        int s, e;
+        cin >> s >> e;
+
+        adj[s].push_back(e);
+        adj[e].push_back(s);
     }
 
-    vector<int> pages(n);
-    for (int i = 0; i < n; i++) {
-        cin >> pages[i];
+    vector<bool> vis(cities + 1, false);
+    vector<int> ans2;
+    int ans = 0;
+
+    for (int i = 1; i <= cities; i++) {
+        if (!vis[i]) {
+            ans2.push_back(i);
+            dfs(i, adj, vis);
+            ans++;
+        }
     }
 
-    cout << Sol(n, x, prices, pages) << endl;
+    cout << ans - 1 << endl;
+
+    for (int i = 0; i < ans - 1; i++) {
+        cout << ans2[i] << " " << ans2[i + 1] << endl;
+    }
 
     return 0;
 }

@@ -40,7 +40,7 @@ public class CatlansNumber {
 
 
     public static void main(String[] args) {
-        int n = 30;
+        int n = 3;
         int[] dp = new int[n+1];
         Arrays.fill(dp, -1);
         // System.out.println(catlanRecursion(n));
