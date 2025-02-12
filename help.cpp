@@ -1,48 +1,55 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-void dfs(int cur, vector<vector<int>> &adj, vector<bool> &vis) {
+void cycle(int cur, int par, vector<bool> &vis, vector<int> &ans, vector<vector<int>> &adj) {
     vis[cur] = true;
+    ans.push_back(cur);
+
     for (int neigh : adj[cur]) {
         if (!vis[neigh]) {
-            dfs(neigh, adj, vis);
+            cycle(neigh, cur, vis, ans, adj);
+        } else if (vis[neigh] && neigh != par) { // Cycle detected
+            auto it = find(ans.begin(), ans.end(), neigh);
+            if (it != ans.end()) {
+                size_t cycleStartIdx = distance(ans.begin(), it); // Use size_t to match ans.size()
+                cout << ans.size() - cycleStartIdx + 1 << "\n"; // Cycle length
+
+                for (size_t i = cycleStartIdx; i < ans.size(); i++) {
+                    cout << ans[i] << " ";
+                }
+                cout << neigh << "\n"; // To close the cycle
+                exit(0);
+            }
         }
     }
+
+    ans.pop_back(); // Backtracking
 }
 
 int main() {
-    int cities, nr;
-    cin >> cities >> nr;
+    int n, m;
+    cin >> n >> m;
 
-    vector<vector<int>> adj(cities + 1);
-
-    while (nr--) {
+    vector<vector<int>> adj(n + 1);
+    for (int i = 0; i < m; i++) {
         int s, e;
         cin >> s >> e;
-
         adj[s].push_back(e);
         adj[e].push_back(s);
     }
 
-    vector<bool> vis(cities + 1, false);
-    vector<int> ans2;
-    int ans = 0;
+    vector<bool> vis(n + 1, false);
+    vector<int> ans; // Declare ans before calling cycle()
 
-    for (int i = 1; i <= cities; i++) {
+    for (int i = 1; i <= n; i++) {
         if (!vis[i]) {
-            ans2.push_back(i);
-            dfs(i, adj, vis);
-            ans++;
+            cycle(i, -1, vis, ans, adj);
         }
     }
 
-    cout << ans - 1 << endl;
-
-    for (int i = 0; i < ans - 1; i++) {
-        cout << ans2[i] << " " << ans2[i + 1] << endl;
-    }
-
+    cout << "IMPOSSIBLE\n";
     return 0;
 }
