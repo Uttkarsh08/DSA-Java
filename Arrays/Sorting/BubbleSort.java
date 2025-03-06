@@ -13,12 +13,32 @@ public class BubbleSort {
             }
         }
         for(int i=0; i<l; i++){
-            System.out.println(arr[i]+ " ");
+            System.out.print(arr[i]+ " ");
         }
 
     }
+
+    public static void BubbleRecursion(int[] arr, int i, int j){
+            if(j >= arr.length-1) return;
+            if(i> arr.length-j-2){
+                BubbleRecursion(arr, 0, j+1);
+                return;
+            }
+            if(arr[i] > arr[i+1]){
+                int temp = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = temp;
+            }
+            BubbleRecursion(arr, i+1, j);
+            
+    }
     public static void main(String[] args) {
-        int[] arr = {5,4,1,3,2};
-        Bubble(arr);
+        int[] arr = {5, 3, 8, 6, 2};
+        // Bubble(arr);
+        System.out.println();
+        BubbleRecursion(arr, 0, 0);
+        for(int x=0; x<arr.length; x++){
+            System.out.print(arr[x]+ " ");
+        }
     }
 }

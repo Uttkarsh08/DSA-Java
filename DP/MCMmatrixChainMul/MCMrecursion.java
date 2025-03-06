@@ -4,7 +4,7 @@ public class MCMrecursion {
     public static int mcm(int[] arr, int i, int j){
         if(i==j) return 0; //base case(we have only one mtrix for multiplication)
         int ans = Integer.MAX_VALUE;
-        for(int k=i; k<j; k++){ //upto j-1(every posiible cut to find different wqays to multiply the matrices)
+        for(int k=i; k<j; k++){ //upto j-1(every posiible cut to find different ways to multiply the matrices)
             //divide the matrices A1, A2, An-1 into 2 subproblems and get answer with recursion.
 
             int cost1 = mcm(arr, i, k);  //dim -> arr[i-1] X arr[k];
@@ -20,7 +20,7 @@ public class MCMrecursion {
         return ans;
     }
     public static void main(String[] args) {
-        int arr[] = new int[]{1,2,3,4,3};
+        int arr[] = new int[]{2,1,3,4};
 
         System.out.println(mcm(arr, 1, arr.length-1));
     }
